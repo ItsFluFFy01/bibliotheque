@@ -1,0 +1,92 @@
+/* AddBook.css */
+
+/* Base styles */
+.search-input {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f7fafc;
+  width: 100%;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+/* Header et footer */
+.header-shadow {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Card et containers */
+.card-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+/* Messages d'état */
+.message {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.message-success {
+  background-color: #f0fff4;
+  border-left: 4px solid #38a169;
+  color: #276749;
+}
+
+.message-error {
+  background-color: #fff5f5;
+  border-left: 4px solid #e53e3e;
+  color: #c53030;
+}
+
+/* Animation pour les messages */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Boutons */
+.main-button {
+  background-color: #000;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.main-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-button {
+  background-color: #e2e8f0;
+  color: #4a5568;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  background-color: #cbd5e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}

@@ -1,0 +1,286 @@
+/* CSS modifié pour la page de connexion - Bibliothèque Virtuelle */
+
+/* Import de polices */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Raleway:wght@400;500&display=swap');
+
+/* Style global */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Variables de couleurs */
+:root {
+  --primary: #000000;
+  --primary-light: #000000;
+  --text-dark: #333;
+  --text-light: #777;
+  --error: #c0392b;
+  --success: #2e7d32;
+  --background: #f8f5f0;
+}
+
+/* Conteneur principal */
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: white;
+  justify-content: center; /* Centre le contenu horizontalement */
+}
+
+/* Suppression du panneau gauche avec image de fond */
+.login-image-panel {
+  display: none !important; /* Masque forcé du panneau marron */
+}
+
+/* Panneau droit avec formulaire */
+.login-form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 500px; /* Limite la largeur du formulaire */
+  margin: 0 auto; /* Centrage */
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  position: relative;
+}
+
+/* Bordure supérieure du conteneur */
+.login-form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--primary);
+}
+
+/* En-tête du formulaire */
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.book-icon {
+  width: 55px;
+  height: 55px;
+  color: var(--primary);
+}
+
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+/* Erreur d'authentification */
+.login-error {
+  background-color: #fcede9;
+  border-left: 4px solid var(--error);
+  color: var(--error);
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Formulaire */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+/* Style pour les champs avec icônes */
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  color: #aaa;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background-color: #fafafa;
+}
+
+.input-with-icon input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+  background-color: #fff;
+}
+
+.input-with-icon input::placeholder {
+  color: #bbb;
+}
+
+/* Options du formulaire */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: var(--primary);
+}
+
+.forgot-password {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Bouton de connexion */
+.login-button {
+  width: 100%;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: var(--primary-light);
+}
+
+.login-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.login-button.loading {
+  background-color: var(--primary-light);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Lien d'inscription */
+.signup-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 1.5rem;
+}
+
+.signup-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Message de bienvenue après connexion réussie */
+.welcome-message {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #e8f5e9;
+  border-radius: 6px;
+  border-left: 4px solid var(--success);
+}
+
+.welcome-message h3 {
+  color: var(--success);
+  margin-bottom: 0.5rem;
+}
+
+.welcome-message p {
+  color: #388e3c;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design - Pas besoin de réafficher le panneau gauche */
+@media screen and (min-width: 992px) {
+  .login-image-panel {
+    display: none !important; /* Garde le panneau masqué même sur grands écrans */
+  }
+  
+  .login-form-panel {
+    max-width: 100%; /* Utilise tout l'espace disponible */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .login-form-container {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .forgot-password {
+    margin-top: 0.75rem;
+  }
+}

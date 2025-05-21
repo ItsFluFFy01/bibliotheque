@@ -1,0 +1,60 @@
+/* Statistiques.css */
+
+/* Header Shadow */
+.header-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-shadow-dark {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Shadow */
+.card-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-shadow-dark {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Chart Container */
+.chart-container {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.chart-container.light {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+}
+
+.chart-container.dark {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .chart-container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Smooth Transitions for Theme Changes */
+.chart-container,
+header,
+footer,
+main {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

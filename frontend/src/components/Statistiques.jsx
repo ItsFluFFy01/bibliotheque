@@ -1,0 +1,211 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from 'recharts';
+import './Statistiques.css';
+
+const Statistiques = () => {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [userName, setUserName] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  // Fetch user info and theme
+  useEffect(() => {
+    // Load theme from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    setDarkMode(savedTheme === 'dark');
+
+    // Fetch user data
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUserName(response.data.name);
+      } catch (error) {
+        console.error("Erreur lors de la récupération de l'utilisateur :", error);
+      }
+    };
+
+    // Fetch stats data
+    const fetchStats = async () => {
+      if (!token) {
+        setError('Aucun token d’authentification trouvé.');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const res = await axios.get('http://127.0.0.1:8000/api/stats/livres-par-utilisateur', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log('Données reçues :', res.data);
+        if (!Array.isArray(res.data)) {
+          throw new Error('Les données reçues ne sont pas au format attendu.');
+        }
+        setData(res.data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Erreur lors du chargement :', err);
+        setError(
+          err.response
+            ? `Erreur ${err.response.status}: ${
+                err.response.data.message || 'Erreur serveur'
+              }\nDétails : ${err.response.data.error || 'Aucun détail disponible'}`
+            : 'Impossible de se connecter au serveur.'
+        );
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+    fetchStats();
+  }, [token]);
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  // Toggle theme
+  const toggleTheme = () => {
+    const newTheme = !darkMode;
+    setDarkMode(newTheme);
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+  };
+
+  return (
+    <div className={`flex flex-col min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
+      {/* Header */}
+      <header className={`w-full ${darkMode ? 'bg-gray-800 header-shadow-dark' : 'bg-white header-shadow'} p-4 flex justify-between items-center`}>
+        <div className="flex items-center">
+          <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>BiblioGest</span>
+          <nav className="ml-6 space-x-4">
+            <Link to="/admin-dashboard" className={`${darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'} transition-colors`}>Accueil</Link>
+            <Link to="/users" className={`${darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'} transition-colors`}>Utilisateurs</Link>
+            <Link to="/statistiques" className={`${darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'} transition-colors`}>Statistiques</Link>
+          </nav>
+        </div>
+        <div className="flex items-center space-x-4">
+          <div className={`relative ${darkMode ? 'text-gray-200' : 'text-gray-800'} font-semibold`}>
+            Bonjour, {userName || 'Utilisateur'}
+          </div>
+          <button
+            onClick={toggleTheme}
+            className={`${darkMode ? 'text-yellow-400 hover:text-yellow-300' : 'text-gray-600 hover:text-blue-600'} font-medium transition-colors duration-200 flex items-center gap-1`}
+          >
+            {darkMode ? (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fillRule="evenodd" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+              </svg>
+            )}
+          </button>
+          <button
+            onClick={handleLogout}
+            className={`${
+              darkMode 
+                ? 'bg-gray-700 hover:bg-gray-600 text-white' 
+                : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+            } py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2`}
+            aria-label="Déconnexion"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m5 4v-7a3 3 0 00-3-3H5"
+              />
+            </svg>
+            Déconnexion
+          </button>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-grow flex justify-center items-start p-6">
+        <div className={`${darkMode ? 'bg-gray-800 card-shadow-dark' : 'bg-white card-shadow'} rounded-lg p-6 w-full max-w-6xl`}>
+          <h1 className={`text-3xl font-bold text-center mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            Statistiques de la Bibliothèque
+          </h1>
+          <p className={`text-center ${darkMode ? 'text-gray-300' : 'text-gray-500'} mb-8`}>
+            Visualisez le nombre de livres par utilisateur
+          </p>
+
+          {loading && (
+            <div className={`text-center ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Chargement...
+            </div>
+          )}
+
+          {error && (
+            <div className={`text-center ${darkMode ? 'text-red-400' : 'text-red-600'} mb-4`}>
+              {error}
+            </div>
+          )}
+
+          {!loading && !error && !data.length && (
+            <div className={`text-center ${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-4`}>
+              Aucune donnée disponible.
+            </div>
+          )}
+
+          {!loading && !error && data.length > 0 && (
+            <div className="chart-container">
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={data}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#4B5563' : '#E5E7EB'} />
+                  <XAxis dataKey="name" stroke={darkMode ? '#D1D5DB' : '#374151'} />
+                  <YAxis stroke={darkMode ? '#D1D5DB' : '#374151'} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: darkMode ? '#1F2937' : '#FFFFFF',
+                      border: `1px solid ${darkMode ? '#4B5563' : '#E5E7EB'}`,
+                      color: darkMode ? '#D1D5DB' : '#374151',
+                    }}
+                  />
+                  <Bar dataKey="book_count" fill={darkMode ? '#34D399' : '#82ca9d'} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className={`w-full ${darkMode ? 'bg-gray-800 header-shadow-dark' : 'bg-white header-shadow'} p-4 flex justify-between items-center`}>
+        <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>BiblioGest © 2025</span>
+        <div>
+          <button className={`${darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'} mx-2 transition-colors`}>Aide</button>
+          <span className={`mx-2 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>|</span>
+          <button className={`${darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'} mx-2 transition-colors`}>Paramètres</button>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Statistiques;

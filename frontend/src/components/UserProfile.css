@@ -1,0 +1,199 @@
+/* UserProfile.css */
+
+/* Header and footer shadows */
+.header-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-shadow-dark {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Card shadows */
+.card-shadow {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card-shadow-dark {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card-shadow:hover, .card-shadow-dark:hover {
+  transform: translateY(-2px);
+}
+
+/* Profile avatar animations and effects */
+.profile-avatar {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: linear-gradient(45deg, #4f46e5, #6366f1);
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-avatar-dark {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(45deg, #3730a3, #4f46e5);
+}
+
+.profile-avatar-dark:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Information section styling */
+.info-section {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.info-section:hover {
+  background-color: rgba(243, 244, 246, 0.5);
+}
+
+.dark .info-section:hover {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+/* Info row animations */
+.info-row {
+  position: relative;
+  transition: all 0.2s ease;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.info-row::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4f46e5, #6366f1);
+  transition: width 0.3s ease;
+}
+
+.dark .info-row::after {
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+.info-row:hover::after {
+  width: 100%;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.loading-pulse {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Back button hover effect */
+.back-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.back-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.back-button:hover::before {
+  width: 100%;
+}
+
+.back-button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* General transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 1rem;
+  }
+  
+  .profile-avatar {
+    width: 5rem;
+    height: 5rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* Custom scrollbar for the page */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
