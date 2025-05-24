@@ -1,61 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 Projet DevWeb – Application de Gestion de Bibliothèque
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Cette application web permet de gérer une bibliothèque avec une interface utilisateur en **ReactJS** (frontend) et une **API RESTful** en **Laravel** (backend).
 
-## About Laravel
+Elle intègre une **authentification multi-rôles** (Admin et User).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Fonctionnalités
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Pour les Administrateurs
+- Gestion complète des utilisateurs (CRUD)
+  - Ajouter de nouveaux utilisateurs
+  - Modifier les informations des utilisateurs existants
+  - Supprimer des utilisateurs
+  - Visualiser le profil de chaque utilisateur
+  - Visualiser la liste des utilisateurs
+- Gestion complète des livres (CRUD)
+  - Visualiser tous les livres disponibles
+- Tableau de bord avec statistiques
+  - Nombre de livres par utilisateurs
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Pour les Utilisateurs
+- Consulter la liste de ses livres
+- Recherche de livres par titre
+- Gestion des livres (CRUD)
+  - Ajouter de nouveaux livres
+  - Modifier les informations des livres
+  - Supprimer des livres
 
-## Learning Laravel
+## 🛠️ Technologies Utilisées
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Front-end
+- ReactJS
+- React Router pour la navigation
+- Axios pour les requêtes API
+- Bootstrap ou Material UI pour les composants d'interface
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Back-end
+- Laravel (API RESTful)
+- Authentification JWT
+- MySQL pour la base de données
+- Eloquent ORM
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Installation & Lancement du projet
 
-## Laravel Sponsors
+### 🧱 Prérequis
+- PHP ≥ 8.1
+- Composer
+- Node.js ≥ 16
+- npm
+- MySQL ou MariaDB
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Cloner le projet
+```bash
+git clone https://github.com/ItsFluFFy01/bibliotheque.git
+cd bibliotheque
+```
 
-### Premium Partners
+### 2. Installation du Back-end (Laravel)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+```bash
 
-## Contributing
+# Installation des dépendances
+composer install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Configuration de l'environnement
+cp .env.example .env
+php artisan key:generate
 
-## Code of Conduct
+# Configuration de la base de données dans le fichier .env
+# Modifier les valeurs selon votre configuration
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=bibliotheque
+DB_USERNAME=root
+DB_PASSWORD=
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Migration de la base de données
+php artisan migrate
 
-## Security Vulnerabilities
+# (Optionnel) Remplir la base de données avec des données de test
+php artisan db:seed
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Lancer le serveur
+php artisan serve
+```
 
-## License
+### 3. Installation du Front-end (ReactJS)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cd bibliotheque/frontend
+
+# Installation des dépendances
+npm install
+
+# Configuration de l'URL de l'API dans le fichier .env
+# Créer un fichier .env s'il n'existe pas
+echo "REACT_APP_API_URL=http://localhost:8000/api" > .env
+
+# Lancer l'application
+npm start
+```
+
+## 💾 Structure de la Base de Données
+
+La base de données comprend les tables principales suivantes :
+- `users` - Informations sur les utilisateurs et administrateurs
+- `books` - Catalogue des livres disponibles
+
+## 🔑 Accès à l'Application
+
+### Accès Administrateur
+- Email: admin@gmail.com
+- Mot de passe: admin123
+
+### Accès Utilisateur
+- Email: imane@gmail.com
+- Mot de passe: Imane1234
+
+
+## 📞 Contact
+
+Pour toute question ou assistance, veuillez contacter [misbahlamiae23@gmail.com]
