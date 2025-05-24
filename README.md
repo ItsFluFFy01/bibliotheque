@@ -38,7 +38,7 @@ Elle intègre une **authentification multi-rôles** (Admin et User).
 - Laravel (API RESTful)
 - Authentification JWT
 - MySQL pour la base de données
-- Eloquent ORM
+
 
 ## 🚀 Installation & Lancement du projet
 
